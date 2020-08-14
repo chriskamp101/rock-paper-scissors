@@ -24,6 +24,7 @@
             function playerPlay() {
                 let selection = prompt("Rock, paper or scissors?")
                 if (!selection) {
+                    console.log('You need to pick "rock", "paper" or "scissors"!')
                     return false;
                 }
                 switch(selection.toLowerCase()) {
@@ -34,59 +35,90 @@
                     case "scissors":
                         return "Scissors";
                     default:
+                        console.log('You need to pick "rock", "paper" or "scissors"!')
                         return false;
                 }
             }
             //Play a round against the computer
             function playRound(playerSelection, computerSelection) {
                 if (!playerSelection) {
-                    return 'You need to pick "rock", "paper" or "scissors"!'
+                    return false;
                 }
                 switch(playerSelection) {
                     case "Rock":
                         if (computerSelection == "Rock") {
-                            return getResult(playerSelection, computerSelection, "tie");
+                            return "tie";
                         }
                         else if (computerSelection == "Paper") {
-                            return getResult(playerSelection, computerSelection, "lose");
+                            return "lose";
                         }
                         else {
-                            return getResult(playerSelection, computerSelection, "win");
+                            return "win";
                         }
                     case "Paper":
                         if (computerSelection == "Rock") {
-                            return getResult(playerSelection, computerSelection, "win");
+                            return "win";
                         }
                         else if (computerSelection == "Paper") {
-                            return getResult(playerSelection, computerSelection, "tie");
+                            return "tie";
                         }
                         else {
-                            return getResult(playerSelection, computerSelection, "lose");
+                            return "lose";
                         }
                     case "Scissors":
                         if (computerSelection == "Rock") {
-                            return getResult(playerSelection, computerSelection, "lose");
+                            return "lose";
                         }
                         else if (computerSelection == "Paper") {
-                            return getResult(playerSelection, computerSelection, "win");
+                            return "win";
                         }
                         else {
-                            return getResult(playerSelection, computerSelection, "tie");
+                            return "tie";
                         }
                 }
             }
-            function getResult(playerSelection, computerSelection, result) {
+            //Get text to print for a given outcome
+            function getResultText(playerSelection, computerSelection, result) {
                 switch(result) {
                     case "win":
-                        return `You win! ${playerSelection} beats ${computerSelection}!`;
+                        return `You win! ${playerSelection} beats ${computerSelection}!\n`;
                     case "lose":
-                        return `You lose! ${computerSelection} beats ${playerSelection}!`;
+                        return `You lose! ${computerSelection} beats ${playerSelection}!\n`;
                     case "tie":
-                        return "It's a tie!";
+                        return "It's a tie!\n";
                     default:
                         return false;
                 }
             }
+            function reportScore(round, playerScore, computerScore) {
+                return "Round: " + (i + 1) + "\nYour score: " + playerScore +"\nComputer's score: " + computerScore;
+            }
+            //Play five rounds and keep score
+            function game(){
+                let playerScore = 0;
+                let computerScore = 0;
+                let result;
+                let playerSelection;
+                let computerSelection;
+                for (i = 0; i < 5; i++) {
+                    playerSelection = playerPlay();
+                    computerSelection = computerPlay();
+                    result = playRound(playerSelection, computerSelection);
+                    if(result == "win") {
+                        playerScore++;
+                    }
+                    else if (result == "lose") {
+                        computerScore++;
+                    }
+                    else if (result == false) {
+                        i--;
+                        continue;
+                    }
+                    console.log(getResultText(playerSelection, computerSelection, result) + reportScore(i+1, playerScore, computerScore));
+                }
+            }
+            let startGame = prompt("Do you want to play? Type \"Yes\" if you do.");
+            if (startGame == "yes") {game();}
             // console.log(playRound(playerPlay(), computerPlay()));
             // console.log(playerPlay());
             // console.log(computerPlay());

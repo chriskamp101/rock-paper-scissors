@@ -21,7 +21,7 @@
                 }
             }
             //Prompt player for a selection
-            function playerSelection() {
+            function playerPlay() {
                 let selection = prompt("Rock, paper or scissors?")
                 if (!selection) {
                     return false;
@@ -37,8 +37,59 @@
                         return false;
                 }
             }
-            console.log(playerSelection());
-            console.log(computerPlay());
+            //Play a round against the computer
+            function playRound(playerSelection, computerSelection) {
+                if (!playerSelection) {
+                    return 'You need to pick "rock", "paper" or "scissors"!'
+                }
+                switch(playerSelection) {
+                    case "Rock":
+                        if (computerSelection == "Rock") {
+                            return getResult(playerSelection, computerSelection, "tie");
+                        }
+                        else if (computerSelection == "Paper") {
+                            return getResult(playerSelection, computerSelection, "lose");
+                        }
+                        else {
+                            return getResult(playerSelection, computerSelection, "win");
+                        }
+                    case "Paper":
+                        if (computerSelection == "Rock") {
+                            return getResult(playerSelection, computerSelection, "win");
+                        }
+                        else if (computerSelection == "Paper") {
+                            return getResult(playerSelection, computerSelection, "tie");
+                        }
+                        else {
+                            return getResult(playerSelection, computerSelection, "lose");
+                        }
+                    case "Scissors":
+                        if (computerSelection == "Rock") {
+                            return getResult(playerSelection, computerSelection, "lose");
+                        }
+                        else if (computerSelection == "Paper") {
+                            return getResult(playerSelection, computerSelection, "win");
+                        }
+                        else {
+                            return getResult(playerSelection, computerSelection, "tie");
+                        }
+                }
+            }
+            function getResult(playerSelection, computerSelection, result) {
+                switch(result) {
+                    case "win":
+                        return `You win! ${playerSelection} beats ${computerSelection}!`;
+                    case "lose":
+                        return `You lose! ${computerSelection} beats ${playerSelection}!`;
+                    case "tie":
+                        return "It's a tie!";
+                    default:
+                        return false;
+                }
+            }
+            // console.log(playRound(playerPlay(), computerPlay()));
+            // console.log(playerPlay());
+            // console.log(computerPlay());
         </script>
     </body>
 </html>

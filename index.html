@@ -20,6 +20,24 @@
                         return "Scissors";
                 }
             }
+            //Prompt player for a selection
+            function playerSelection() {
+                let selection = prompt("Rock, paper or scissors?")
+                if (!selection) {
+                    return false;
+                }
+                switch(selection.toLowerCase()) {
+                    case "rock":
+                        return "Rock";
+                    case "paper":
+                        return "Paper";
+                    case "scissors":
+                        return "Scissors";
+                    default:
+                        return false;
+                }
+            }
+            console.log(playerSelection());
             console.log(computerPlay());
         </script>
     </body>
